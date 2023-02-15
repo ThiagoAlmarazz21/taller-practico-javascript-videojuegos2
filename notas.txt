@@ -1,0 +1,12 @@
+game.fillText = agrega texto a nuestro canvas
+
+game.font agrega estilos al texto, propiedades = {1 = "px", 2 si o si = "fuente de letra"}
+
+game.textAlign es como en css textAlign = "center","end","start","left","right"
+
+canvas.getContext('2d') esto sirve para decirle al canvas que vamos a usar  dimension "2d"
+
+
+
+
+
