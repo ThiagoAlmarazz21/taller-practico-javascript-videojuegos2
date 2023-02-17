@@ -4,8 +4,9 @@ const emojis = {
     ,'X':'💣'
     ,'I':'🏃‍♂️'
     ,'PLAYER':'🛸'
-    ,'BOMB_COLLISION':'⚡'
-    ,'GAME_OVER':'👎 :('
+    ,'BOMB_COLLISION':'🔥'
+    ,'END_COLLISION':'🚀'
+    ,'GAME_OVER':'👎'
     ,'WIN':'🏆',
 };
 

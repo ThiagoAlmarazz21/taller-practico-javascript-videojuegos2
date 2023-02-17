@@ -8,6 +8,11 @@ const playerPosition = {
     x: undefined,
     y: undefined
 };
+const endPosition = {
+    x: undefined,
+    y: undefined,
+};
+const enemiesPositions = [];
 
 window.addEventListener('load', setCanvasSize);
 window.addEventListener('resize', setCanvasSize);
@@ -25,38 +30,43 @@ function setCanvasSize() {
     elementsSize = canvasSize / 10;
   
     startGame();
-  }
+}
 
-function startGame() {
-    console.log({canvasSize, elementsSize});
-
-    game.font = elementsSize + 'px Roboto';
+  function startGame() {
+    game.font = elementsSize + 'px Verdana';
     game.textAlign = 'end';
-
-    const map = maps[1];
+  
+    const map = maps[0];
     const mapRows = map.trim().split('\n');
-    const mapCols = mapRows.map(row => row.trim().split(''));
-    console.log({map, mapRows, mapCols});
-
-    game.clearRect(0,0,canvasSize,canvasSize);
-    mapCols.forEach((row, rowI) => {
-        row.forEach((col, colI) => {
-
-            const emoji = emojis[col];
-            const posX = elementsSize * (colI + 1); 
-            const posY = elementsSize * (rowI + 1);
-
-            if(col == 'O') {
-                if(!playerPosition.x && !playerPosition.y) {
-                    playerPosition.x = posX;
-                    playerPosition.y = posY;
-                    console.log({playerPosition});
-                }
-            }
-            game.fillText(emoji, posX, posY);
-        });
+    const mapRowCols = mapRows.map(row => row.trim().split(''));
+    
+    game.clearRect(0,0,canvasSize, canvasSize);
+    mapRowCols.forEach((row, rowI) => {
+      row.forEach((col, colI) => {
+        const emoji = emojis[col];
+        const posX = elementsSize * (colI + 1);
+        const posY = elementsSize * (rowI + 1);
+  
+        if (col == 'O') {
+          if (!playerPosition.x && !playerPosition.y) {
+            playerPosition.x = posX;
+            playerPosition.y = posY;
+            console.log({playerPosition});
+          }
+        } else if (col == 'I') {
+          endPosition.x = posX;
+          endPosition.y = posY;
+        } else if (col == 'X') {
+            enemiesPositions.push({
+                x: posX,
+                y: posY
+            });
+        }
+        game.fillText(emoji, posX, posY);
+      });
     });
-    movePlayer();
+  
+movePlayer();
 }
 
 const btnUp = document.querySelector('#up');
@@ -71,10 +81,18 @@ btnLeft.addEventListener('click', moveLeft);
 btnRight.addEventListener('click', moveRight);
 btnDown.addEventListener('click', moveDown);
 
-function movePlayer() {
+function movePlayer() { 
+    const endCollisionX = playerPosition.x.toFixed(2) == endPosition.x.toFixed(2);
+    const endCollisionY = playerPosition.y.toFixed(2) == endPosition.y.toFixed(2);
+    const endCollision = endCollisionX && endCollisionY;
+
+    if(endCollision){
+        console.log('¡SUBISTE DE NIVEL!');
+    }
+
     game.fillText(emojis['PLAYER'], playerPosition.x, playerPosition.y);
 }
-
+// FUNCIONES PARA MOVERSE
 function moveByKeys(event) {
     let tecla = event.key;
     switch (tecla) {
@@ -154,7 +172,6 @@ function moveByKeys(event) {
             break;
     }
 }
-// FUNCIONES PARA MOVERSE
 function moveUp() {
     if ((playerPosition.y - elementsSize) < elementsSize) {
       console.log('OUT');
@@ -162,34 +179,28 @@ function moveUp() {
       playerPosition.y -= elementsSize;
       startGame();
     }
-  }
-  function moveLeft() {
+}
+function moveLeft() {
     if ((playerPosition.x - elementsSize) < elementsSize) {
       console.log('OUT');
     } else {
       playerPosition.x -= elementsSize;
       startGame();
     }
-  }
-  function moveRight() {
+}
+function moveRight() {
     if ((playerPosition.x + elementsSize) > canvasSize) {
       console.log('OUT');
     } else {
       playerPosition.x += elementsSize;
       startGame();
     }
-  }
-  function moveDown() {    
+}
+function moveDown() {    
     if ((playerPosition.y + elementsSize) > canvasSize) {
       console.log('OUT');
     } else {
       playerPosition.y += elementsSize;
       startGame();
     }
-  }
-  
-  
-
-
-
-
+}
