@@ -31,9 +31,9 @@ window.addEventListener('resize', setCanvasSize);
 
 function setCanvasSize() {
     if (window.innerHeight > window.innerWidth) {
-      canvasSize = window.innerWidth * 0.7;
+      canvasSize = window.innerWidth * 0.65;
     } else {
-      canvasSize = window.innerHeight * 0.7;
+      canvasSize = window.innerHeight * 0.65;
     }
     
     canvas.setAttribute('width', canvasSize);
@@ -136,6 +136,7 @@ function levelFail() {
     level = 0;
     lives = 3;
     timeStart = undefined;
+    alert("Te quedaste sin vidas😔💔");
   }
   playerPosition.x = undefined;
   playerPosition.y = undefined;
