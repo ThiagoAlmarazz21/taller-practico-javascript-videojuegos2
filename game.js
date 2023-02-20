@@ -1,11 +1,13 @@
 const canvas = document.querySelector("#game");
 const game = canvas.getContext('2d');
+const fin = document.querySelector(".win-container");
 const btnUp = document.querySelector('#up');
 const btnLeft = document.querySelector('#left');
 const btnRight = document.querySelector('#right');
 const btnDown = document.querySelector('#down');
 const spanLives = document.querySelector('#lives');
 const spanTime = document.querySelector('#time');
+const spanRecord = document.querySelector("#record");
 
 let canvasSize;
 let elementsSize;
@@ -146,6 +148,7 @@ function levelFail() {
 function gameWin() {
   alert('¡TERMINASTE EL JUEGO👽🚀!');
   clearInterval(timeInterval);
+  fin.setAttribute("active")
 }
 
 function showLives() {
