@@ -49,8 +49,8 @@ maps.push(`
   XXXXXXXXXX
 `);
 maps.push(`
-XXXOXXXX
-XXX---XXXX
+XXOXXXXX
+XX----XXXX
 XXXXX-XXXX
 XXXXX-XXXX
 XX-----XXX

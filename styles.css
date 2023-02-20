@@ -5,6 +5,11 @@ body {
     margin: 0;
     padding: 0;
 }
+
+.inactive {
+    display: none;
+}
+
 .game-contenedor {
     display: flex;
     align-items: center;
@@ -63,8 +68,38 @@ p {
 }
 
 .win-container {
-    display: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
 }
+
+.win-container h2 {
+    font-size: 40px;
+    color: white;
+}
+
+.win-container span {
+    font-size: 100px;
+    margin-bottom: 50px;
+}
+
+.win-container input {
+    transition: all 300ms;
+    padding: 10px 30px;
+    font-size: 20px;
+    border: none;
+    border-radius: 7px;
+    background-color: #333;
+    color: white;
+}
+
+.win-container input:hover {
+    cursor: pointer;
+    background-color: transparent;
+    border: 1px solid;
+}
+
 
 @media (max-width: 440px) {
     button {

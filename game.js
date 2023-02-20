@@ -1,6 +1,7 @@
 const canvas = document.querySelector("#game");
 const game = canvas.getContext('2d');
-const fin = document.querySelector(".win-container");
+const win = document.querySelector(".win-container");
+const contenedor = document.querySelector(".game-contenedor");
 const btnUp = document.querySelector('#up');
 const btnLeft = document.querySelector('#left');
 const btnRight = document.querySelector('#right');
@@ -50,6 +51,8 @@ function startGame() {
     game.font = elementsSize + 'px Verdana';
     game.textAlign = 'end';
   
+    win.classList.remove('win-container');
+
     const map = maps[level];
 
     if(!map) {
@@ -64,7 +67,7 @@ function startGame() {
 
     const mapRows = map.trim().split('\n');
     const mapRowCols = mapRows.map(row => row.trim().split(''));
-    
+  
     showLives();
 
     enemyPositions = [];
@@ -146,9 +149,8 @@ function levelFail() {
 }
 
 function gameWin() {
-  alert('¡TERMINASTE EL JUEGO👽🚀!');
   clearInterval(timeInterval);
-  fin.setAttribute("active")
+  panFinal();
 }
 
 function showLives() {
@@ -157,6 +159,14 @@ function showLives() {
 
 function showTime() {
   spanTime.innerHTML = Date.now() - timeStart;
+}
+
+function panFinal() {
+  win.classList.remove('inactive');
+  win.classList.add('win-container');
+  contenedor.classList.remove('game-contenedor');
+  contenedor.classList.add('inactive');
+  
 }
 
 // FUNCIONES PARA MOVERSE
