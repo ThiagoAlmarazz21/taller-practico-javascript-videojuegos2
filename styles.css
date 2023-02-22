@@ -67,11 +67,12 @@ p {
     width: 100%;
 }
 
-.win-container {
+.win-container p {
     display: flex;
-    align-items: center;
     justify-content: center;
-    flex-direction: column;
+    color: white;
+    font-size: 24px;
+    margin-bottom: 20px;
 }
 
 .win-container h2 {
@@ -98,6 +99,55 @@ p {
     cursor: pointer;
     background-color: transparent;
     border: 1px solid;
+}
+
+.win-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.sin-vidas {
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    background-color:#2d995f;
+}   
+
+.sin-vidas h2 {
+    font-size: 40px;
+    color: white;
+}
+
+.sin-vidas span {
+    font-size: 100px;
+    margin-bottom: 50px;
+}
+
+.sin-vidas input {
+    transition: all 300ms;
+    padding: 10px 30px;
+    font-size: 20px;
+    border: none;
+    border-radius: 7px;
+    background-color: #333;
+    color: white;
+}
+.sin-vidas input:hover {
+    cursor: pointer;
+    background-color: transparent;
+    border: 1px solid;
+}
+
+#record {
+    color: rgb(251, 255, 8);
+}
+#time {
+    color: white;
 }
 
 
