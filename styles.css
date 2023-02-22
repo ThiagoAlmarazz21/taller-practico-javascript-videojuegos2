@@ -149,7 +149,18 @@ p {
 #time {
     color: white;
 }
+#level {
+    color: #000;
+    font-size: 20px;
+}
+.levelc {
+    color: #000;
+    font-size: 20px;
+}
 
+.mensajes p{
+    padding: 3px;
+}
 
 @media (max-width: 440px) {
     button {

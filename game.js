@@ -11,6 +11,7 @@ const spanLives = document.querySelector('#lives');
 const spanTime = document.querySelector('#time');
 const spanRecord = document.querySelector('#record');
 const pResult = document.querySelector('#result');
+const pLevel = document.querySelector('#level');
 
 let canvasSize;
 let elementsSize;
@@ -28,11 +29,9 @@ const playerPosition = {
 const endPosition = {
     x: undefined,
     y: undefined,
-};
+}
+
 let enemyPositions = [];
-
-let mapCompleted = [];
-
 
 window.addEventListener('load', setCanvasSize);
 window.addEventListener('resize', setCanvasSize);
@@ -44,20 +43,19 @@ function setCanvasSize() {
       canvasSize = window.innerHeight * 0.65;
     }
     
-        
     spanSinVidas.classList.remove('sin-vidas');
     canvas.setAttribute('width', canvasSize);
     canvas.setAttribute('height', canvasSize);
     
     elementsSize = canvasSize / 10;
-  
     startGame();
 }
 
 function startGame() {
+    showLevel();
+
     game.font = elementsSize + 'px Verdana';
     game.textAlign = 'end';
-
     win.classList.remove('win-container');
 
     const map = maps[level];
@@ -91,7 +89,6 @@ function startGame() {
           if (!playerPosition.x && !playerPosition.y) {
             playerPosition.x = posX;
             playerPosition.y = posY;
-            console.log({playerPosition});
           }
         } else if (col == 'I') {
           endPosition.x = posX;
@@ -116,6 +113,8 @@ btnRight.addEventListener('click', moveRight);
 btnDown.addEventListener('click', moveDown);
 
 function movePlayer() { 
+  game.fillText(emojis['PLAYER'], playerPosition.x, playerPosition.y);
+
     const endCollisionX = playerPosition.x.toFixed(2) == endPosition.x.toFixed(2);
     const endCollisionY = playerPosition.y.toFixed(2) == endPosition.y.toFixed(2);
     const endCollision = endCollisionX && endCollisionY;
@@ -126,67 +125,20 @@ function movePlayer() {
       return enemyCollisionX && enemyCollisionY;
     });
 
-
     if(endCollision){
-      levelWin();
+      game.fillText(emojis['FIN_COLLISION'], playerPosition.x, playerPosition.y);
+      setTimeout(()=>{levelWin();},300);
     }
-
+    
     if(enemyCollision) {
-      game.fillText(emojis["BOMB_COLLISION"], playerPosition.x, playerPosition.y);
-      levelFail();
+      game.fillText(emojis['BOMB_COLLISION'], playerPosition.x, playerPosition.y);
+      setTimeout(()=>{levelFail();},300);
     }
-    game.fillText(emojis['PLAYER'], playerPosition.x, playerPosition.y);
 }
 
 function levelWin() {
-
-  //  PARA PASAR DE NIVEL RANDOM (EN PROCESO)
-  // let mapaRandom = Math.ceil(Math.random() * 4);
-
-  // let arrayN = mapCompleted.filter((item, index) => {
-  //   return mapCompleted.indexOf(item) === index;
-  // });
-  // console.log(arrayN);
-
-  // if(arrayN.length > 3) {
-  //   gameWin();
-  // } 
-  
-  // switch(mapaRandom) {
-
-  //   case 0:
-
-  //   level = 0
-  //   mapCompleted.push(0);
-  //   // console.log(mapCompleted);
-
-  //   break;
-
-  //   case 1:
-
-  //   level = 1
-  //   mapCompleted.push(1);
-  //   // console.log(mapCompleted);
-
-  //   break;
-
-  //   case 2:
-
-  //   level = 2
-  //   mapCompleted.push(2);
-  //   // console.log(mapCompleted);
-
-  //   break;
-
-  //   case 3:
-
-  //   level = 3
-  //   mapCompleted.push(3);
-  //   // console.log(mapCompleted);
-
-  //   break;
-  // }
   level++;
+  showLevel();
   startGame();
 };
 
@@ -197,7 +149,6 @@ function levelFail() {
     sinVidas();
     level = 0;
     lives = 3;
-    timeStart = undefined;
   }
   playerPosition.x = undefined;
   playerPosition.y = undefined;
@@ -229,6 +180,10 @@ function showLives() {
   spanLives.innerHTML = emojis["HEART"].repeat(lives);
 }
 
+function showLevel() {
+  pLevel.innerHTML = `${level}`
+}
+
 function showTime() {
   spanTime.innerHTML = Date.now() - timeStart;
 }
@@ -236,7 +191,6 @@ function showTime() {
 function showRecord() {
   spanRecord.innerHTML = sessionStorage.getItem('record_time');
 }
-
 function panFinal() {
   win.classList.remove('inactive');
   win.classList.add('win-container');
